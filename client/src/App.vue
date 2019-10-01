@@ -1,12 +1,18 @@
 <template>
-  <div class="container">Hello sir</div>
+  <div class="container">
+    <Header />
+    <router-view/>
+  </div>
 </template>
 
 <script>
 
+import Header from './components/Header';
+
 export default {
   name: 'app',
   components: {
+    Header
   }
 }
 </script>
@@ -67,7 +73,7 @@ input,
 select,
 textarea {
   display: block;
-  width:100vw;
+  width:100%;
   padding: 0.4rem;
   font-size: 1.2rem;
   border: 1px solid #ccc;
