@@ -7,7 +7,7 @@
                 <select name="platform" id="platform" v-model="platform">
                     <option value="xbl">Xbox</option>
                     <option value="psn">PlayStation</option>
-                    <option value="Origin">Origin</option>
+                    <option value="origin">Origin</option>
                 </select>
             </div>
             <div class="form-group">
