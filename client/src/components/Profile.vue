@@ -56,7 +56,7 @@
                             <h4>Damage Done:</h4>
                             <p>
                                 {{profileData.segments[0].stats.damage.displayValue}}
-                                <span>({{profileData.segments[0].stats.damage.percentile}}%)</span>
+                                <span>({{profileData.segments[0].stats.damage.percentile}}% Percentile)</span>
                             </p>
                         </li>
 
