@@ -7,7 +7,8 @@
     "start": "node server",
     "server": "nodemon server",
     "client": "npm run serve --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "deploy":"gh-pages -d dist"
   },
   "repository": {
     "type": "git",
@@ -18,11 +19,12 @@
   "bugs": {
     "url": "https://github.com/aaronrcs/Apex_Tracker/issues"
   },
-  "homepage": "https://github.com/aaronrcs/Apex_Tracker#readme",
+  "homepage": "https://aaronrcs.github.io/Apex_Tracker",
   "dependencies": {
     "concurrently": "^4.1.2",
     "dotenv": "^8.1.0",
     "express": "^4.17.1",
+    "gh-pages": "^2.1.1",
     "morgan": "^1.9.1",
     "node-fetch": "^2.6.0"
   },
