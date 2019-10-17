@@ -1,7 +1,7 @@
 <template>
   <section>
       <div id="loading_bar" v-if="!profileData">
-          <h3>Loading...</h3>
+          <h3>Loading Stats......</h3>
       </div>
 
       <div v-if="error">
