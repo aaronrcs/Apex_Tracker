@@ -59,6 +59,3 @@ config.env
 
 # next.js build output
 .next
-
-# Vue Config file
-vue.config.js
