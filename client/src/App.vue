@@ -49,7 +49,7 @@ ul{
 }
 
 .body-bg-image{
-  background: var(--primary-color) url("./assets/octane.png") no-repeat top center;
+  background: var(--primary-color) url("./assets/lifeline.png") no-repeat top center;
 }
 
 .container{

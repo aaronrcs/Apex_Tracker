@@ -1,6 +1,6 @@
 <template>
     <header>
-        <img :src="image">
+        <img id="logo" :src="image">
     </header>
 </template>
 
@@ -17,14 +17,13 @@ export default {
 </script>
 
 <style scoped>
-    img{
+    #logo{
         width:300px;
     }
 
     @media (max-width: 700px){
-        img{
-            display: block;
-            margin: auto;
+        #logo{
+            width: 33vw;
         }
     }
 </style>

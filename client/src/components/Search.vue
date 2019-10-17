@@ -1,9 +1,9 @@
 <template>
     <section class="search">
-        <h1> Track Player Stats</h1>
+        <h1> Search your Apex Legends Stats</h1>
         <form v-on:submit.prevent="onSubmit">
             <div class="form-group">
-                <label for="platform">Platform</label>
+                <label for="platform">Choose Platform</label>
                 <select name="platform" id="platform" v-model="platform">
                     <option value="xbl">Xbox</option>
                     <option value="psn">PlayStation</option>
@@ -11,7 +11,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="gamertag">Gamertag</label>
+                <label for="gamertag">Enter Gamertag</label>
                 <input type="text" name="text" v-model="gamertag" id="gamertag"
                 placeholder="Origin ID, Xbox Live gamertag, PSN ID, etc">
             </div>
@@ -38,8 +38,9 @@ export default {
   methods:{
       onSubmit(){
           if(!this.gamertag){
-              this.$toasted.show("Please enter a gamertag" , {
-                  duration: 3000,
+              let toastMessage = "Please enter a gamertag"
+              this.$toasted.show(toastMessage, {
+                  duration:4500,
                   icon: "exclamation-circle"
               })
           }else{
@@ -50,6 +51,9 @@ export default {
 }
 </script>
 
+
 <style>
-    
+    .toasted{
+        justify-content: start !important;
+    }
 </style>
