@@ -53,6 +53,7 @@ export default {
 
 
 <style>
+    /*Modify toasted message when being viewed on mobile*/
     .toasted{
         justify-content: start !important;
     }

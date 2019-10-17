@@ -62,3 +62,5 @@ config.env
 
 # Vue Config file
 vue.config.js
+
+public
