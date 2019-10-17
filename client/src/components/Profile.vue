@@ -28,90 +28,63 @@
               </div>
               <div>
                   <ul>
-                      <li>
-                          <h4>Selected Legend</h4>
-                          <p>{{profileData.metadata.activeLegendName}}</p>
-                      </li>
+                     
+                    <!-- Lifetime stats: -->
+                    <li>
+                      <h3>Overview:</h3>
+                      <br>
 
-                    <!--Apex Level -->
-                      <li v-if="profileData.segments[0].stats.level">
-                          <h4>Current Apex Level:</h4>
+                      <div v-for="(value, id) in overviewStats" :key="id" class="legend_stats">
+                          <h4>{{value.displayName}}:</h4>
                           <p>
-                            {{profileData.segments[0].stats.level.displayValue}}
-                            <span>({{profileData.segments[0].stats.level.percentile}}% Percentile)</span>
+                            {{value.displayValue}}
+                            <span>({{value.percentile}}% Percentile)</span>
                           </p>
-                      </li>
+                      </div>
 
-                    <!--Lifetime kills with Legend-->
-                      <li v-if="profileData.segments[0].stats.kills">
-                          <h4>Lifetime Kills:</h4>
-                          <p>
-                            {{profileData.segments[0].stats.kills.displayValue}}
-                            <span>({{profileData.segments[0].stats.kills.percentile}}% Percentile)</span>
-                          </p>
-                      </li>
-
-                    <!--Damage done by Legend -->
-                       <li v-if="profileData.segments[0].stats.damage">
-                            <h4>Damage Done:</h4>
-                            <p>
-                                {{profileData.segments[0].stats.damage.displayValue}}
-                                <span>({{profileData.segments[0].stats.damage.percentile}}% Percentile)</span>
-                            </p>
-                        </li>
-
-                    <!-- Season Wins -->
-                       <li v-if="profileData.segments[0].stats.seasonWins">
-                          <h4>Season Wins:</h4>
-                          <p>
-                            {{profileData.segments[0].stats.seasonWins.displayValue}}
-                            <span>({{profileData.segments[0].stats.seasonWins.percentile}}% Percentile)</span>
-                          </p>
-                      </li>
-                      <li v-else>
-                          <h4>--Season wins not found--</h4>
-                      </li>
-
-                    <!--Season 2 Wins -->
-                      <li v-if="profileData.segments[0].stats.season2Wins">
+                      <!--Season 2 Wins -->
+                      <div class="life_time" v-if="profileData.segments[0].stats.season2Wins">
                           <h4>Season 2 Wins:</h4>
                           <p>
                             {{profileData.segments[0].stats.season2Wins.displayValue}}
                             <span>({{profileData.segments[0].stats.season2Wins.percentile}}% Percentile)</span>
                           </p>
-                      </li>
-                      <li v-else>
+                      </div>
+                      <div class="life_time" v-else>
                           <h4>--Season 2 wins not found--</h4>
-                      </li>
+                      </div>
 
-                    <!--Season 3 Wins -->
-                       <li v-if="profileData.segments[0].stats.season3Wins">
+                      <!--Season 3 Wins -->
+                       <div class="life_time" v-if="profileData.segments[0].stats.season3Wins">
                           <h4>Season 3 Wins:</h4>
                           <p>
                             {{profileData.segments[0].stats.season3Wins.displayValue}}
                             <span>({{profileData.segments[0].stats.season3Wins.percentile}}% Percentile)</span>
                           </p>
-                      </li>
-                      <li v-else>
+                      </div>
+                      <div class="life_time" v-else>
                           <h4>--Season 3 wins not found--</h4>
-                      </li>
+                      </div>
+                      
+                    </li>
 
-                      <!--Kills with currently selected Legend -->
-                      <li v-if="profileData.segments[1].stats.kills">
-                          <h4>Kills with {{profileData.metadata.activeLegendName}} </h4>
-                          <p>
-                            {{profileData.segments[1].stats.kills.displayValue}}
-                            <span>({{profileData.segments[1].stats.kills.percentile}}% Percentile)</span>
-                          </p>
-                      </li>
+                      <!-- Legend stats: -->
+                      <li>
 
-                       <!--Revives with currently selected Legend -->
-                      <li v-if="profileData.segments[0].stats.revives">
-                          <h4>Revives with {{profileData.metadata.activeLegendName}} </h4>
-                          <p>
-                            {{profileData.segments[0].stats.revives.displayValue}}
-                            <span>({{profileData.segments[0].stats.revives.percentile}}% Percentile)</span>
-                          </p>
+                        <div class="legend_stats">
+                          <h4>Selected Legend</h4>
+                          <p>{{currentActiveLegend}}</p>
+                        </div>
+                        <br>
+
+                        <div v-for="(value, id) in legendStats" :key="id" class="legend_stats">
+                            <h4>{{value.displayName}}:</h4>
+                            <p>
+                              {{value.displayValue}}
+                              <span>({{value.percentile}}% Percentile)</span>
+                            </p>
+                        </div>
+
                       </li>
 
                   </ul>
@@ -131,7 +104,10 @@ export default {
       return {
           loading:false,
           error: null,
-          profileData: null
+          profileData: null,
+          legendStats: null,
+          currentActiveLegend: null,
+          overviewStats: null
       }
   },
   beforeCreate(){
@@ -143,7 +119,18 @@ export default {
 
         const res = await axios.get(`/api/v1/profile/${this.$route.params.platform}/${this.$route.params.gamertag}`);
 
+        // Attaining reference to player data
         this.profileData = res.data.data;
+
+        // Getting active legend name
+        this.currentActiveLegend = this.profileData.metadata.activeLegendName;
+
+        // Getting access to currenlty selected legend
+        this.legendStats = this.profileData.segments[1].stats;
+
+        // Getting access to lifetime stats
+        this.overviewStats = this.profileData.segments[0].stats;
+
         console.log(this.profileData);
         
     } catch (err) {
@@ -212,6 +199,11 @@ li span {
   color: #ccc;
 }
 
+/* Lifetime stats: */
+.life_time, .legend_stats{
+  padding: 10px;
+}
+
 /* Loading Text: */
 #loading_bar{
     background: #3e3636;
@@ -238,6 +230,7 @@ li span {
     width: 10vw;
 }
 
+/* Media Queries: */
 @media (max-width: 500px) {
     #rank{
         width: 73vw;

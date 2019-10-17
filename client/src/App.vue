@@ -19,7 +19,7 @@ export default {
 
 <style>
 :root{
-  --primary-color:#953036;
+  --primary-color:#4959aa;
 }
 
 * {
@@ -63,7 +63,7 @@ ul{
   margin: 1rem 0;
 }
 .search{
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(1, 37, 140, 0.5);
   border: 4px #fff solid;
   margin-top: 1rem;
   padding: 2rem;
@@ -81,7 +81,7 @@ textarea {
 
 .btn{
   display: inline-block;
-  background: var(--primary-color);
+  background: #e04747;
   color: #fff;
   padding: 0.4rem 1.3rem;
   border: none;
