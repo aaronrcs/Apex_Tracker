@@ -25,5 +25,5 @@ cd client
 npm run build
 # Gets put in /public
 ```
-#Live Demo
+# Live Demo
 https://stat-tracker-apex-legends.herokuapp.com/
