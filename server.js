@@ -16,13 +16,13 @@ if(process.env.NODE_ENV === 'development'){
 app.use('/api/v1/profile', require('./routes/profile'))
 
 // Code for production
-// if(process.env.NODE_ENV === 'production'){
-//     // Set static path
-//     app.use(express.static(__dirname + '/public/'))
+if(process.env.NODE_ENV === 'production'){
+    // Set static path
+    app.use(express.static(__dirname + '/public/'))
 
-//     //redirecting to index.html to display our project
-//     app.get(/.*/,(req,res) => res.sendFile(__dirname + '/public/index.html'))
-// }
+    //redirecting to index.html to display our project
+    app.get(/.*/,(req,res) => res.sendFile(__dirname + '/public/index.html'))
+}
 const port = process.env.PORT || 8000;
 
 app.listen(port, () => {
