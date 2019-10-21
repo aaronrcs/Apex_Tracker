@@ -1,6 +1,7 @@
 # Apex_Tracker
 Full stack Vue/Express app using the Tracker Network API. This web application will allow users to view Apex Legends stats.
 
+
 ## Quick Start
 
 Register and get your API key from
@@ -24,3 +25,5 @@ cd client
 npm run build
 # Gets put in /public
 ```
+#Live Demo
+https://stat-tracker-apex-legends.herokuapp.com/
