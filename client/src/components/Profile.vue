@@ -14,9 +14,22 @@
             <img :src="profileData.platformInfo.avatarUrl" alt="" class="platform-avatar">
             {{profileData.platformInfo.platformUserId}}
           </h1>
+          <form v-on:submit.prevent="onSubmit">
+            <div class="legend_group">
+                <label>Select a different Legend</label>
+                <select name="platform" id="platform" class="legendList" @change="getLegendName($event)">
+                    <option v-for="(value, id) in legendHistory.segments.slice(1)" :key="id" :value="value.metadata.name">{{value.metadata.name}}</option>
+                </select>
+
+                <input type="submit" value="Get Stats" class="btn">
+
+            </div>
+
+          </form>
+          
           <div class="grid">
               <div>
-                <img :src="profileData.segments[1].metadata.imageUrl" alt="">
+                <img :src="currentActiveLegendImage">
                 <div id="rank">
                     <h4>Rank:</h4>
                     <img :src="profileData.segments[0].stats.rankScore.metadata.iconUrl" id="current_rank_logo">
@@ -107,7 +120,10 @@ export default {
           profileData: null,
           legendStats: null,
           currentActiveLegend: null,
-          overviewStats: null
+          currentActiveLegendImage: null,
+          overviewStats: null,
+          legendHistory: null,
+          legendName: ""
       }
   },
   beforeCreate(){
@@ -125,8 +141,14 @@ export default {
         // Getting active legend name
         this.currentActiveLegend = this.profileData.metadata.activeLegendName;
 
+        // Getting active legend image
+        this.currentActiveLegendImage = this.profileData.segments[1].metadata.imageUrl;
+
         // Getting access to currenlty selected legend
         this.legendStats = this.profileData.segments[1].stats;
+
+        // Getting access to all legends used by player
+        this.legendHistory = this.profileData;
 
         // Getting access to lifetime stats
         this.overviewStats = this.profileData.segments[0].stats;
@@ -136,6 +158,31 @@ export default {
     } catch (err) {
         this.loading = false;
         this.error = err.response.data.message;
+    }
+  },
+  methods:{
+      onSubmit(){
+
+        let legendData = this.profileData.segments
+
+        for(let i = 1; i < legendData.length; i++){
+
+          /* Upon submitting, this if statement will check if the
+           user selection is equal to any of the available legend names.
+           If true, it will show relevant stats of selected legend */
+           
+          if(legendData[i].metadata.name === this.legendName){
+            this.legendStats = this.profileData.segments[i].stats;
+            this.currentActiveLegendImage = this.profileData.segments[i].metadata.imageUrl;
+            this.currentActiveLegend = this.profileData.segments[i].metadata.name;
+
+          }
+        }
+
+      },
+      getLegendName(event) {
+        // Getting value of legend name
+        this.legendName = event.target.value;
     }
   }
 }
@@ -199,6 +246,19 @@ li span {
   color: #ccc;
 }
 
+/* Drop-down: */
+
+.legend_group{
+  display: block;
+  width: 35vw;
+  padding: 0.4rem;
+  font-size: 3vh;
+}
+
+.legendList{
+  height: 8vh;
+}
+
 /* Lifetime stats: */
 .life_time, .legend_stats{
   padding: 10px;
@@ -232,6 +292,12 @@ li span {
 
 /* Media Queries: */
 @media (max-width: 500px) {
+    .legend_group{
+      width: 75vw;
+    }
+    .legendList{
+      height: 9vh;
+    }
     #rank{
         width: 73vw;
     }
